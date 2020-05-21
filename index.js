@@ -16,13 +16,14 @@ client.on("message", async (msg) => {
   }
   const bot_args = msg.content.slice(prefix.length).trim().split(/ +/g);
   console.log(bot_args);
-  msg.channel.send(
-    `${msg.author.username} wants to see ${bot_args[0]} at ${bot_args[1]}`
-  );
+  let movie = bot_args[0];
+  let time = bot_args[1];
+
+  msg.channel.send(`${msg.author.username} wants to see ${movie} at ${time}`);
 
   let movieData = async () => {
     let response = await axios.get(
-      `http://www.omdbapi.com/?apikey=${config.omdb_key}&t=${bot_args[0]}`
+      `http://www.omdbapi.com/?apikey=${config.omdb_key}&t=${movie}`
     );
     return response.data;
   };
