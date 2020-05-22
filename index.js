@@ -16,7 +16,6 @@ client.on("message", async (msg) => {
   }
   const bot_args = msg.content.slice(prefix.length).trim().split(/ +/g);
   console.log(bot_args);
-  msg.channel.send(`${msg.author.username} wants to see ${bot_args.join(" ")}`);
   let movie = bot_args.join("+");
 
   // GET movie plot 
@@ -24,12 +23,8 @@ client.on("message", async (msg) => {
     let response = await axios.get(
       `http://www.omdbapi.com/?apikey=${config.omdb_key}&t=${movie}`
     );
-    console.log(`http://www.omdbapi.com/?apikey=${config.omdb_key}&t=${movie}`);
     return response.data;
   };
-  let data = await movieData();
-  console.log(data.Plot);
-  msg.channel.send(`${data.Plot}`);
 
   // GET movie trailer
   let movieTrailer = async () => {
@@ -43,13 +38,15 @@ client.on("message", async (msg) => {
         key: config.youtube_key,
       },
     });
-    console.log(response.data.items[0].id.videoId);
     return response.data.items[0].id.videoId;
   };
+  let data = await movieData();
   let trailerLink = await movieTrailer();
-  msg.channel.send(`http://youtu.be/${trailerLink}`);
-
-
+  console.log(data.Plot);
+  // msg.channel.send(`${msg.author.username} wants to see ${bot_args.join(" ")}`);
+  msg.channel.send(`${msg.author.username} wants to see ${bot_args.join(" ")}
+  \nhttp://youtu.be/${trailerLink}
+  \n${data.Plot}`);
 });
 
 client.login(token);
