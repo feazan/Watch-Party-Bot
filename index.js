@@ -40,6 +40,8 @@ client.on("message", async (msg) => {
     });
     return response.data.items[0].id.videoId;
   };
+
+  
   let data = await movieData();
   let trailerLink = await movieTrailer();
   console.log(data.Plot);
