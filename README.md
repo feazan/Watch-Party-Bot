@@ -20,6 +20,17 @@ git clone https://github.com/Feazan/Watch-Party-Bot.git
 npm install
 ```
 
+### 3. Add secrets
+
+Create ``config.json`` file and add the following
+```
+{
+    "token": "DISCORD_LOGIN_TOKEN",
+    "omdb_key": "OMDB_KEY",
+    "youtube_key": "GOOGLE_DEVELOPERS_KEY"
+}
+```
+
 - :zap: [Discord.js](https://www.npmjs.com/package/discord.js?source=post_page-----7b5fe27cb6fa----------------------) - An NPM package for interacting with discord bots.
 - :globe_with_meridians: [Axios](https://www.npmjs.com/package/axios) - Promise based HTTP client for the browser and node.js .
 - 🎬 [OMDb](http://www.omdbapi.com/) - The OMDb API is a RESTful web service to obtain movie information.
