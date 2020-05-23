@@ -14,6 +14,7 @@ client.on("message", async (msg) => {
   if (!msg.content.startsWith(prefix)) {
     return;
   }
+
   const bot_args = msg.content.slice(prefix.length).trim().split(/ +/g);
   console.log(bot_args);
 
@@ -43,16 +44,25 @@ client.on("message", async (msg) => {
   };
 
   let data = await movieData();
-  let trailerLink = await movieTrailer();
-  console.log(data.Plot);
-
   const embed = new Discord.MessageEmbed()
-    .setTitle("Watch Party")
-    .addField("Title", `${data.Title}`)
-    .addField("Trailer", `http://youtu.be/${trailerLink}`)
-    .addField("Plot", `${data.Plot}`)
-    .setColor("0x6C3483")
-    .setThumbnail(`${data.Poster}`);
+  
+  if (!data.Error) {
+    let trailerLink = await movieTrailer();
+    console.log(data.Plot);
+      embed
+      .setTitle("Watch Party")
+      .addField("Title", `${data.Title}`)
+      .addField("Trailer", `http://youtu.be/${trailerLink}`)
+      .addField("Plot", `${data.Plot}`)
+      .setColor("0x6C3483")
+      .setThumbnail(`${data.Poster}`);
+  } else {
+      embed
+      .setTitle("Watch Party")
+      .addField("Error", "Movie not found, please check spelling. Usage:\n > !wp [movie name]")
+      .setColor("0x6C3483")
+      .setThumbnail("https://image-cdn.neatoshop.com/styleimg/57039/none/black/default/346304-20;1489525731t.jpg");
+  }
   msg.channel.send(embed);
 });
 
