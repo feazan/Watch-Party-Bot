@@ -4,7 +4,7 @@
 
 ## Overview
 
-This project is an implementation of a **discord bot** which informs the a particular channel on a **discord server** of a **watch party** they'd like to start. The bot **makes API GET requests to OMDb** taking a **movie title** and the response generated contains various data about the film including plot, director, actors, etc. The bot takes **plot** details and returns it to the **server channel** along with a message stating that a user has requested to start a watch party at a specified time. Makes a call to google developers API to YouTube, to grab a link to the **trailer** for the movie and posts to chat.
+This project is an implementation of a **discord bot** which informs the a particular channel on a **discord server** of a **watch party** they'd like to start. The bot **makes API GET requests to OMDb** taking a **movie title** and the response generated contains various data about the film including plot, director, actors, etc. The bot takes **plot** details, **poster** and returns it to the **server channel** along with a message stating that a user has requested to start a watch party at a specified time. Makes a call to google developers API to YouTube, to grab a link to the **trailer** for the movie and posts to chat.
 
 ## Installation
 
