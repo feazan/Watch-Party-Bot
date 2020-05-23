@@ -46,9 +46,9 @@ client.on("message", async (msg) => {
   let trailerLink = await movieTrailer();
   console.log(data.Plot);
 
-  msg.channel.send(`Good news @everyone! ${
-    msg.author.username
-  } wants to see ${bot_args.join(" ")}
+  msg.channel.send(`Good news @everyone! We're going to watch "${bot_args.join(
+    " "
+  )}"
   \nhttp://youtu.be/${trailerLink}
   \n${data.Plot}`);
 });
