@@ -17,7 +17,7 @@ client.on("message", async (msg) => {
   const bot_args = msg.content.slice(prefix.length).trim().split(/ +/g);
   console.log(bot_args);
 
-  // GET movie plot
+  // GET movie data
   let movieData = async () => {
     let movie = escape(bot_args);
     let response = await axios.get(
@@ -46,11 +46,14 @@ client.on("message", async (msg) => {
   let trailerLink = await movieTrailer();
   console.log(data.Plot);
 
-  msg.channel.send(`Good news @everyone! We're going to watch "${bot_args.join(
-    " "
-  )}"
-  \nhttp://youtu.be/${trailerLink}
-  \n${data.Plot}`);
+  const embed = new Discord.MessageEmbed()
+    .setTitle("Watch Party")
+    .addField("Title", `${data.Title}`)
+    .addField("Trailer", `http://youtu.be/${trailerLink}`)
+    .addField("Plot", `${data.Plot}`)
+    .setColor("0x6C3483")
+    .setThumbnail(`${data.Poster}`);
+  msg.channel.send(embed);
 });
 
 client.login(token);
