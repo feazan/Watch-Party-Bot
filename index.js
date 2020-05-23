@@ -16,10 +16,10 @@ client.on("message", async (msg) => {
   }
   const bot_args = msg.content.slice(prefix.length).trim().split(/ +/g);
   console.log(bot_args);
-  let movie = encodeURI(bot_args.join(" "));
 
-  // GET movie plot 
+  // GET movie plot
   let movieData = async () => {
+    let movie = escape(bot_args);
     let response = await axios.get(
       `http://www.omdbapi.com/?apikey=${config.omdb_key}&t=${movie}`
     );
@@ -28,10 +28,11 @@ client.on("message", async (msg) => {
 
   // GET movie trailer
   let movieTrailer = async () => {
+    let movie = bot_args.join(" ");
     let response = await axios.get("search", {
       baseURL: "https://www.googleapis.com/youtube/v3",
       params: {
-        q: `${movie}+trailer`,
+        q: `${movie} trailer`,
         part: "snippet",
         type: "video",
         maxResults: 1,
@@ -41,12 +42,13 @@ client.on("message", async (msg) => {
     return response.data.items[0].id.videoId;
   };
 
-
   let data = await movieData();
   let trailerLink = await movieTrailer();
   console.log(data.Plot);
-  // msg.channel.send(`${msg.author.username} wants to see ${bot_args.join(" ")}`);
-  msg.channel.send(`Good news @everyone! ${msg.author.username} wants to see ${bot_args.join(" ")}
+
+  msg.channel.send(`Good news @everyone! ${
+    msg.author.username
+  } wants to see ${bot_args.join(" ")}
   \nhttp://youtu.be/${trailerLink}
   \n${data.Plot}`);
 });
