@@ -45,22 +45,21 @@ client.on("message", async (msg) => {
 
   let data = await movieData();
   const embed = new Discord.MessageEmbed()
+  embed
+  .setTitle("Watch Party")
+  .setColor("0x6C3483");
   
   if (!data.Error) {
     let trailerLink = await movieTrailer();
     console.log(data.Plot);
       embed
-      .setTitle("Watch Party")
       .addField("Title", `${data.Title}`)
       .addField("Trailer", `http://youtu.be/${trailerLink}`)
       .addField("Plot", `${data.Plot}`)
-      .setColor("0x6C3483")
       .setThumbnail(`${data.Poster}`);
   } else {
       embed
-      .setTitle("Watch Party")
       .addField("Error", "Movie not found, please check spelling. Usage:\n > !wp [movie name]")
-      .setColor("0x6C3483")
       .setThumbnail("https://image-cdn.neatoshop.com/styleimg/57039/none/black/default/346304-20;1489525731t.jpg");
   }
   msg.channel.send(embed);
